@@ -1,0 +1,39 @@
+<p-dialog [(visible)]="mostrar" [header]="comercio.id ? 'Editar Comércio' : 'Novo Comércio'" 
+          [modal]="true" [style]="{width: '450px'}" styleClass="p-fluid">
+    
+    <ng-template pTemplate="content">
+    
+        <div class="field mb-4">
+            <label for="nome" class="font-bold">Nome do Comércio *</label>
+            <input type="text" pInputText id="nome" [(ngModel)]="comercio.nome" required autofocus 
+                   placeholder="Ex: Padaria do João" />
+        </div>
+
+        <div class="field mb-4">
+            <label for="responsavel" class="font-bold">Responsável *</label>
+            <input type="text" pInputText id="responsavel" [(ngModel)]="comercio.responsavel" required 
+                   placeholder="Nome do dono ou gerente" />
+        </div>
+
+        <div class="field mb-4">
+            <label for="tipo" class="font-bold">Tipo de Comércio *</label>
+            <p-dropdown [options]="tiposComercio" [(ngModel)]="comercio.tipo" 
+                        optionLabel="label" optionValue="value" 
+                        placeholder="Selecione o tipo">
+            </p-dropdown>
+        </div>
+
+        <div class="field mb-4">
+            <label for="cidade" class="font-bold">Cidade *</label>
+            <p-dropdown [options]="listaCidades" [(ngModel)]="comercio.cidadeId" 
+                        optionLabel="nome" optionValue="id" 
+                        placeholder="Selecione a cidade">
+            </p-dropdown>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="cancelar()"></button>
+        <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-success" (click)="salvar()"></button>
+    </ng-template>
+</p-dialog>

@@ -1,0 +1,87 @@
+<div class="card shadow-2 p-4">
+    <div class="flex justify-content-between align-items-center mb-4">
+        <h2 class="m-0 text-900">Gerenciamento de Comércios</h2>
+        <button pButton type="button" label="Novo Comércio" icon="pi pi-plus" 
+        class="p-button-success" (click)="abreJanelaParaCadastrarNovoComercio()">
+</button>
+
+    </div>
+
+    <p-table [value]="listaComercios" [paginator]="true" [rows]="10" 
+             responsiveLayout="scroll" styleClass="p-datatable-gridlines p-datatable-striped">
+        
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
+                <th pSortableColumn="responsavel">Responsável <p-sortIcon field="responsavel"></p-sortIcon></th>
+                <th pSortableColumn="tipo">Tipo <p-sortIcon field="tipo"></p-sortIcon></th>
+                <th pSortableColumn="cidadeId">Cidade (ID) <p-sortIcon field="cidadeId"></p-sortIcon></th>
+                <th style="width: 120px" class="text-center">Ações</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-comercio>
+            <tr>
+                <td>{{comercio.nome}}</td>
+                <td>{{comercio.responsavel}}</td>
+                <td class="text-center">
+                   
+                    <span [class]="'tipo-badge tipo-' + comercio.tipo.toLowerCase()">
+                        {{comercio.tipo}}
+                    </span>
+                </td>
+                <td class="text-center">{{comercio.cidadeId}}</td>
+                <td>
+                    <div class="flex justify-content-center gap-2">
+                        <button pButton pRipple icon="pi pi-pencil" 
+                                class="p-button-rounded p-button-warning p-button-sm"
+                                (click)="abreJanelaParaAlterarComercio(comercio)" 
+                                pTooltip="Editar">
+                        </button>
+                        <button pButton pRipple icon="pi pi-trash" 
+                                class="p-button-rounded p-button-danger p-button-sm"
+                                (click)="excluir(comercio)" 
+                                pTooltip="Excluir">
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5" class="text-center p-5 text-500">
+                    
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<app-cadastrar-comercio [comercio]="comercioSelecionado" 
+                        [mostrar]="mostraJanelaCadastro"
+                        (onClose)="fechaJanelaCadastro($event)">
+</app-cadastrar-comercio>
+
+<style>
+    .tipo-badge {
+        border-radius: 12px;
+        padding: 4px 12px;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 11px;
+        color: #ffffff;
+        display: inline-block;
+        min-width: 100px;
+    }
+    .tipo-farmacia { background-color: #ef4444; }
+    .tipo-padaria { background-color: #f59e0b; }
+    .tipo-posto_gasolina { background-color: #3b82f6; }
+    .tipo-lanchonete { background-color: #10b981; }
+    
+    .card {
+        background: #ffffff;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+    }
+</style>
